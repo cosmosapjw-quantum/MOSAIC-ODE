@@ -2,6 +2,8 @@
 
 MOSAIC-ODE is a **GPU-assisted, topology-aware, online-adaptive integrated ODE solver** in pre-product bootstrap form.
 
+> Bootstrap sync status: source tree, harness, skills, and CI metadata are synchronized on `main`.
+
 The project is deliberately integration-first: it combines mature classical numerical methods with a residual-first multi-scope formulation, topology-aware EESS, homotopy/branch tracking, current-IVP online learning, and single-IVP GPU internal speculation. The experimental modules are not allowed to bypass the original numerical residual/error gate.
 
 This repository descends from the verified WeaveODE Integrated V0 coding loop. The implementation namespace `weaveode` remains temporarily available for compatibility, while new Python code should import `mosaic_ode`.
