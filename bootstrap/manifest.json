@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "project": "MOSAIC-ODE",
+  "release_stage": "integrated-pre-product",
+  "mainline_scope": "ODE",
+  "dae_scope": "research",
+  "languages": ["C", "C++", "CUDA C++", "Python"],
+  "core_modules": [
+    "classical-backbone",
+    "multi-scope-residual",
+    "topology",
+    "eess",
+    "homotopy",
+    "online-learning",
+    "gpu-speculation",
+    "original-residual-validation"
+  ],
+  "pretraining_required": false,
+  "gpu_performance_claim": false,
+  "canonical_python_import": "mosaic_ode",
+  "legacy_python_import": "weaveode",
+  "bootstrap_entry": "scripts/bootstrap.sh",
+  "validation_entry": "scripts/verify_preproduct.sh"
+}

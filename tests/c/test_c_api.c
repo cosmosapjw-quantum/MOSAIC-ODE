@@ -1,0 +1,7 @@
+#include "weaveode/c_api.h"
+#include <math.h>
+#include <stdint.h>
+#include <stdio.h>
+static int close_enough(double a,double b,double tol){return fabs(a-b)<=tol;}
+static weaveode_status linear_rhs_callback(void *ctx,double t,const double *y,size_t dimension,double *out){(void)t;const double *diag=(const double*)ctx;if(dimension!=2||!y||!out||!diag)return WEAVEODE_INVALID_ARGUMENT;out[0]=diag[0]*y[0];out[1]=diag[1]*y[1];return WEAVEODE_OK;}
+int main(void){const double residuals[4]={1,-2,.25,.5},scales[2]={2,4};double scores[2]={0};if(weaveode_wrms_scores(residuals,2,2,scales,scores)!=WEAVEODE_OK)return 1;const double candidates[4]={-1,0,1,2},coeffs[3]={0,0,1};double ps[4]={0};if(weaveode_poly_bdf1_scores(candidates,4,.25,.1,coeffs,3,1e-8,1e-6,ps)!=WEAVEODE_OK)return 2;const double vc[6]={1,2,.5,-1,2.5,.25},vr[6]={.1,-.5,.2,1,-.25,.75},vp[2]={.75,1.5},va[2]={1e-8,2e-8};double vs[3]={0};if(weaveode_vector_bdf1_scores_from_rhs(vc,vr,3,2,vp,.1,va,1e-6,vs)!=WEAVEODE_OK)return 3;const double diag[2]={-2,-.5};weaveode_system_vtable sys={WEAVEODE_ABI_VERSION,linear_rhs_callback,NULL};double cs[3]={0};if(weaveode_score_bdf1_candidates(&sys,(void*)diag,vc,3,2,.1,vp,.1,va,1e-6,cs)!=WEAVEODE_OK)return 4;const double points[10]={0,0,.1,0,3,3,3.1,3,8,0};int64_t labels[5];if(weaveode_radius_components(points,5,2,.2,labels)!=WEAVEODE_OK)return 5;const int64_t exp[5]={0,0,1,1,2};for(size_t i=0;i<5;++i)if(labels[i]!=exp[i])return 6;puts("C API smoke passed");return 0;}

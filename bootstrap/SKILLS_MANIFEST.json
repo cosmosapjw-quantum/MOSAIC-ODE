@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "project": "MOSAIC-ODE",
+  "skills_root": ".agents/skills",
+  "skills": [
+    "mosaic-research-loop",
+    "mosaic-coding-loop",
+    "mosaic-topology-eess",
+    "mosaic-homotopy-root",
+    "mosaic-cuda-loop",
+    "mosaic-online-learning",
+    "mosaic-independent-review"
+  ]
+}
